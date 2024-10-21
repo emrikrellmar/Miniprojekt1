@@ -25,7 +25,7 @@
     <button on:click={calculate}>=</button>
     <button on:click={() => appendToInput('/')}>/</button>
 
-    <button on:click={clearInput} style="grid-column: span 4;">CLEAR</button>
+    <button on:click={clearInput} class="clear">CLEAR</button>
 </section>
 
 <style>
@@ -46,5 +46,9 @@
 
     button:hover {
         background-color: #666;
+    }
+
+    .clear {
+        grid-column: span 4;
     }
 </style>
