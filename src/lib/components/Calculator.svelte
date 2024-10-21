@@ -1,8 +1,7 @@
 
-
-<script>
+    <script>
     // Tanken med calculator-komponenten är att den ska vara hjärnan i 
-    // miniräknaren som håller koll på vad 
+    // miniräknaren och den som håller koll på vad 
     // användaren knappar in, utför beräkningar när det behövs, 
     // och ser till att rätt information visas på skärmen och att 
     // knapparna fungerar som de ska
@@ -10,31 +9,65 @@
     import Display from './Display.svelte';
     import KeyPad from './KeyPad.svelte';
     
-    // Lagrar det aktuella värdet som visas i displayen
     let value = '';
-    // Lagrar den aktuella inmatningen
     let input = '';
 
-    // Funktion för att lägga till siffror och operatorer till input
     const appendToInput = (val) => {
         input += val;
         value = input; 
     };
 
-    // Funktion för att utföra beräkningen
+    // Hjälpfunktion för att kontrollera om en karaktär är en operator
+    const isOperator = (c) => ['+', '-', 'x', '/'].includes(c);
+
+    // Hjälpfunktion för att utföra en operation
+    const operate = (a, b, op) => {
+        switch(op) {
+            case '+': return a + b;
+            case '-': return a - b;
+            case 'x': return a * b;
+            case '/': return b !== 0 ? a / b : NaN;
+            default: return NaN;
+        }
+    };
+
     const calculate = () => {
         try {
-            // Ersätter 'x' med '*' för multiplikation och ',' med '.' för decimaler
-            value = eval(input.replace('x', '*').replace(',', '.'));
-            input = value.toString();
+            let tokens = input.replace(/,/g, '.').match(/(\d+\.?\d*)|[+\-x/]/g) || [];
+            let numbers = [];
+            let operators = [];
+
+            tokens.forEach(token => {
+                if (isOperator(token)) {
+                    while (operators.length && 
+                           ((token !== 'x' && token !== '/') || 
+                            (operators[operators.length - 1] !== '+' && operators[operators.length - 1] !== '-'))) {
+                        let b = numbers.pop();
+                        let a = numbers.pop();
+                        let op = operators.pop();
+                        numbers.push(operate(a, b, op));
+                    }
+                    operators.push(token);
+                } else {
+                    numbers.push(parseFloat(token));
+                }
+            });
+
+            while (operators.length) {
+                let b = numbers.pop();
+                let a = numbers.pop();
+                let op = operators.pop();
+                numbers.push(operate(a, b, op));
+            }
+
+            value = numbers[0].toString();
+            input = value;
         } catch {
-            // Try catch, om beräkningen misslyckas, visa 'Error'
             value = 'Error';
             input = '';
         }
     };
 
-    // Funktion för att rensa input och display
     const clearInput = () => {
         input = '';
         value = ''; 
