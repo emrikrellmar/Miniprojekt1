@@ -1,78 +1,55 @@
 <script>
-    import KeyPad from './KeyPad.svelte';
-
+    import KeyPad from './keypad.svelte';
+    
+    let value = '';
     let input = '';
-    let result = '';
 
-    const appendToInput = (value) => {
-        input += value;
+    const appendToInput = (val) => {
+        input += val;
+        value = input; 
     };
 
     const calculate = () => {
         try {
-            result = eval(input.replace('x', '*').replace(',', '.'));
-        } catch (e) {
-            result = 'Error';
+            value = eval(input.replace('x', '*').replace(',', '.'));
+        } catch {
+            value = 'Error';
         }
     };
 
     const clearInput = () => {
         input = '';
-        result = '';
+        value = ''; 
     };
 </script>
 
 <main>
-    <input type="text" id="lcd" bind:value={input} disabled />
+    <div class="display">
+        {value}
+    </div>
+
     <section id="keyBoard">
         <KeyPad {appendToInput} {calculate} {clearInput} />
     </section>
 </main>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        font-size: 150%;
-        margin: 40px;
-    }
-
-    body {
-        font-size: 1.6rem;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    main input {
-        width: 290px;
-        font-size: 3.5rem;
-        margin-bottom: 10px;
-        background-color: black;
-        color: green;
+<style lang="scss">
+    .display {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
         text-align: right;
-        padding: 10px 4px;
-        font-family: lcd, sans-serif;
-        border: 1px solid yellow;
-        border-radius: 4px;
+        font-size: 28px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        width: 100%;
+        max-width: 300px;
     }
 
-    @media (max-width: 767px) {
-        main input {
-            font-size: 2.5rem;
-        }
-    }
-
-    @media (max-width: 339px) {
-        main input {
-            font-size: 2rem;
-        }
+    #keyBoard {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
     }
 </style>

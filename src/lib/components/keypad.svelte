@@ -47,18 +47,4 @@
     button:hover {
         background-color: #666;
     }
-
-    @media (max-width: 767px) {
-        button {
-            font-size: 1.5rem;
-            padding: 8px;
-        }
-    }
-
-    @media (max-width: 339px) {
-        button {
-            font-size: 1.2rem;
-            padding: 6px;
-        }
-    }
 </style>
