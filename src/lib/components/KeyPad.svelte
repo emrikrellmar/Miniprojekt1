@@ -1,10 +1,12 @@
 <script>
-    export let appendToInput;
-    export let calculate;
-    export let clearInput;
+    // Tar emot funktioner från föräldrakomponenten
+    export let appendToInput;  // Funktion för att lägga till input
+    export let calculate;      // Funktion för att beräkna resultatet
+    export let clearInput;     // Funktion för att rensa input
 </script>
 
 <section id="keyBoard">
+    <!-- Knappar för siffror och operatorer -->
     <button on:click={() => appendToInput('7')}>7</button>
     <button on:click={() => appendToInput('8')}>8</button>
     <button on:click={() => appendToInput('9')}>9</button>
@@ -25,6 +27,7 @@
     <button on:click={calculate}>=</button>
     <button on:click={() => appendToInput('/')}>/</button>
 
+    <!-- Knapp för att rensa input -->
     <button on:click={clearInput} class="clear">CLEAR</button>
 </section>
 
@@ -49,6 +52,6 @@
     }
 
     .clear {
-        grid-column: span 4;
+        grid-column: span 4;  /* Gör CLEAR-knappen bredare */
     }
 </style>

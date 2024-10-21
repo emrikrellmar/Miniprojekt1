@@ -1,4 +1,5 @@
 <script>
+    // Tar emot värdet som ska visas från föräldrakomponenten
     export let value = '';
 </script>
 
