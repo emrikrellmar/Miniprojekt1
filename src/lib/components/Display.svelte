@@ -1,5 +1,6 @@
 <script>
-    // Tar emot värdet som ska visas från föräldrakomponenten
+    // Display-komponenten är miniräknarens skärm som visar 
+    // siffrorna och resultaten så att användaren kan se vad som händer.
     export let value = '';
 </script>
 

@@ -1,5 +1,7 @@
 <script>
-    // Tar emot funktioner från föräldrakomponenten
+    // KeyPad-komponenten är miniräknarens knappsats som låter
+    // användaren trycka på siffror och symboler för att mata in beräkningar.
+    
     export let appendToInput;  // Funktion för att lägga till input
     export let calculate;      // Funktion för att beräkna resultatet
     export let clearInput;     // Funktion för att rensa input

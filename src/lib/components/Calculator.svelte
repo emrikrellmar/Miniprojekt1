@@ -1,4 +1,12 @@
+
+
 <script>
+    // Tanken med calculator-komponenten är att den ska vara hjärnan i 
+    // miniräknaren som håller koll på vad 
+    // användaren knappar in, utför beräkningar när det behövs, 
+    // och ser till att rätt information visas på skärmen och att 
+    // knapparna fungerar som de ska
+
     import Display from './Display.svelte';
     import KeyPad from './KeyPad.svelte';
     
@@ -20,7 +28,7 @@
             value = eval(input.replace('x', '*').replace(',', '.'));
             input = value.toString();
         } catch {
-            // Om beräkningen misslyckas, visa 'Error'
+            // Try catch, om beräkningen misslyckas, visa 'Error'
             value = 'Error';
             input = '';
         }
